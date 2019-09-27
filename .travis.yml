@@ -37,6 +37,6 @@ before_install:
   - chmod +x gradlew
 
 script:
-  - "./gradlew clean :coroutines:build"
-  - "./gradlew clean :coroutines:build :coroutines:publish"
+  - "./gradlew clean"
+  - "./gradlew :coroutines:clean :coroutines:build :coroutines:publish"
   - if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew clean :coroutines:bintrayUpload; fi
