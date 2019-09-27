@@ -1,13 +1,14 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/27/19 11:44 PM
+ * Last modified: 9/27/19 11:50 PM
  * Copyright (c) 2019
  * All rights reserved
  */
 
 // library version
 ext.libVersionName = "0.0.1"
+ext.libGroudId = "one.brainyapps.androidkit"
 
 // sdk versions
 def build_versions = [:]
