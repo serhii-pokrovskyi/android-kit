@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/27/19 11:50 PM
+ * Last modified: 9/28/19 12:33 AM
  * Copyright (c) 2019
  * All rights reserved
  */
@@ -9,6 +9,7 @@
 // library version
 ext.libVersionName = "0.0.1"
 ext.libGroudId = "one.brainyapps.androidkit"
+ext.bintrayRepoName = "android-kit"
 
 // sdk versions
 def build_versions = [:]
