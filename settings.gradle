@@ -1,10 +1,10 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/27/19 11:40 PM
+ * Last modified: 9/28/19 11:18 AM
  * Copyright (c) 2019
  * All rights reserved
  */
 
-include ':app', ':coroutines'
+include ':app', ':coroutines', ':livedata'
 rootProject.name='Android Kit'

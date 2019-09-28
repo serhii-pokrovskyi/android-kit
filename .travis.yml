@@ -37,6 +37,8 @@ before_install:
   - chmod +x gradlew
 
 script:
-  - "./gradlew clean"
+  - "./gradlew clean build"
   - "./gradlew :coroutines:clean :coroutines:build :coroutines:publish"
   - if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew clean :coroutines:bintrayUpload; fi
+  - "./gradlew :livedata:clean :livedata:build :livedata:publish"
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew clean :livedata:bintrayUpload; fi
