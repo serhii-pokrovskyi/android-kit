@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/28/19 11:36 AM
+ * Last modified: 9/28/19 11:44 AM
  * Copyright (c) 2019
  * All rights reserved
  */
@@ -51,6 +51,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 
     def lifecycle_version = "2.1.0"
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
