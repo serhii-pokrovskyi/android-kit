@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/28/19 11:44 AM
+ * Last modified: 9/28/19 11:50 AM
  * Copyright (c) 2019
  * All rights reserved
  */
@@ -14,7 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 
 /**
- * Kind of emulates live cycle
+ * Emulates live cycle, sort of
  */
 class TestLifecycleOwner : LifecycleOwner {
 

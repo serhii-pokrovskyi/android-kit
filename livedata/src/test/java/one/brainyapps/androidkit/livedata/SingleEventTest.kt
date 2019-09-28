@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/28/19 11:49 AM
+ * Last modified: 9/28/19 12:04 PM
  * Copyright (c) 2019
  * All rights reserved
  */
@@ -24,6 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class SingleEventTest {
+
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
