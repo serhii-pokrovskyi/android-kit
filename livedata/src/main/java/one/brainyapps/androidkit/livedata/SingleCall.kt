@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/28/19 11:37 AM
+ * Last modified: 9/28/19 12:52 PM
  * Copyright (c) 2019
  * All rights reserved
  */
@@ -20,11 +20,11 @@ import java.util.concurrent.atomic.AtomicBoolean
  * WARNING: Make sure that you have only one observer - because only one will be called.
  * And there is no way to know witch one will.
  */
-class SingleCall : LiveData<Void>() {
+class SingleCall : LiveData<Unit>() {
 
     private val mPending = AtomicBoolean(false)
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<in Void>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in Unit>) {
         super.observe(owner, Observer { v ->
             if (mPending.compareAndSet(true, false)) {
                 observer.onChanged(v)
@@ -33,7 +33,7 @@ class SingleCall : LiveData<Void>() {
     }
 
     @MainThread
-    override fun setValue(value: Void?) {
+    override fun setValue(value: Unit?) {
         mPending.set(true)
         super.setValue(value)
     }
