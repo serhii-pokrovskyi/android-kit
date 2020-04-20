@@ -14,4 +14,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: ./gradlew clean :coroutines:build :livedata:build
+        run:
+          - "./gradlew clean"
+          - ":coroutines:build"
+          - ":livedata:build"
