@@ -1,13 +1,13 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/28/19 2:40 PM
- * Copyright (c) 2019
+ * Last modified: 4/20/20 8:39 PM
+ * Copyright (c) 2020
  * All rights reserved
  */
 
 // library version
-ext.libVersionName = "0.0.2"
+ext.libVersionName = "0.0.3"
 ext.libGroudId = "one.brainyapps.androidkit"
 ext.bintrayRepoName = "android-kit"
 
@@ -16,9 +16,9 @@ def build_versions = [:]
 build_versions.min_sdk = 15
 build_versions.target_sdk = 29
 build_versions.compile_sdk = 29
-build_versions.build_tools = "29.0.2"
+build_versions.build_tools = "29.0.3"
 ext.build_versions = build_versions
 
 // kotlin
-ext.kotlin_version = "1.3.50"
-ext.kotlin_coroutines_version = "1.3.1"
+ext.kotlin_version = "1.3.72"
+ext.kotlin_coroutines_version = "1.3.5"

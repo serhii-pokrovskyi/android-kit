@@ -1,8 +1,8 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 9/28/19 3:06 PM
- * Copyright (c) 2019
+ * Last modified: 4/20/20 5:48 PM
+ * Copyright (c) 2020
  * All rights reserved
  */
 
@@ -99,8 +99,10 @@ project(':livedata').afterEvaluate {
                     final dependenciesNode = asNode().appendNode('dependencies')
 
                     ext.addDependency = { Dependency dep, String scope ->
-                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
-                            return // ignore invalid dependencies
+                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified") {
+                            // ignore invalid dependencies
+                            return
+                        }
 
                         final dependencyNode = dependenciesNode.appendNode('dependency')
                         dependencyNode.appendNode('groupId', dep.group)
