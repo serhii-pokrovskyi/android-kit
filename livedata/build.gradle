@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/20/20 10:37 PM
+ * Last modified: 4/20/20 10:40 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -54,11 +54,11 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
-    def lifecycle_version = "2.1.0"
+    def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
 
     testImplementation 'junit:junit:4.12'
-    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
