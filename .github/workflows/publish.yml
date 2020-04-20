@@ -21,8 +21,8 @@ jobs:
         run: ./gradlew clean
       - name: Tests
         run: ./gradlew test
-      - name: Build with Gradle
+      - name: Publish livedata
         env:
           bintrayUser: ${{ secrets.bintray_user }}
           bintrayApiKey: ${{ secrets.bintray_apikey }}
-        run: ./gradlew :coroutines:bintrayUpload :livedata:bintrayUpload
+        run: ./gradlew :livedata:bintrayUpload
