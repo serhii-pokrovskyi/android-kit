@@ -1,12 +1,11 @@
-name: Main CI
+name: Publish to bintray
 on:
-  [push]
-
+  release:
+    branches:
+      - master
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
@@ -17,7 +16,10 @@ jobs:
         run: chmod +x gradlew
       - name: Cleaning
         run: ./gradlew clean
+      - name: Tests
+        run: ./gradlew tests
       - name: Build with Gradle
-        run: ./gradlew build
-      - name: Run all tests
-        run: ./gradlew clean test
+        env:
+          bintrayUser: ${{ secrets.bintray_user }}
+          bintrayApiKey: ${{ secrets.bintray_apikey }}
+        run: ./gradlew :coroutines:bintrayUpload :livedata:bintrayUpload
