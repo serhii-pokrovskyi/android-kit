@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/20/20 5:48 PM
+ * Last modified: 4/20/20 10:37 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -142,8 +142,8 @@ project(':coroutines').afterEvaluate {
     }
 
     bintray {
-        user = System.getenv("bintray_user")
-        key = System.getenv("bintray_apikey")
+        user = System.getenv("bintrayUser")
+        key = System.getenv("bintrayApiKey")
         override = false
         setPublications(libArtifactId)
         pkg {
