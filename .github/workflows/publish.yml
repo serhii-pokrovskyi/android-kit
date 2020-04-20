@@ -1,10 +1,14 @@
 name: Publish to bintray
+
 on:
   release:
     types: [created]
+
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
@@ -16,7 +20,7 @@ jobs:
       - name: Cleaning
         run: ./gradlew clean
       - name: Tests
-        run: ./gradlew tests
+        run: ./gradlew test
       - name: Build with Gradle
         env:
           bintrayUser: ${{ secrets.bintray_user }}
