@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/20/20 10:40 PM
+ * Last modified: 4/21/20 9:08 AM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -11,6 +11,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'org.jetbrains.dokka-android'
 
 def libArtifactId = "livedata"
 
@@ -48,6 +49,11 @@ android {
     }
 }
 
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -65,21 +71,36 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-task androidJavadocs(type: Javadoc) {
-    failOnError = false
-    source = android.sourceSets.main.java.srcDirs
-    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-    classpath += files(ext.androidJar)
-    exclude '**/R.html', '**/R.*.html', '**/index.html'
+if (project.hasProperty("kotlin")) {
+    //Kotlin libraries
+    task androidJavadocs(type: Javadoc, dependsOn: dokka) {
+    }
+} else if (project.hasProperty("android")) {
+    // Android libraries
+    task androidJavadocs(type: Javadoc, dependsOn: dokka) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else {
+    task androidJavadocs(type: Javadoc) {
+        // if java
+        failOnError = false
+        source = android.sourceSets.main.java.srcDirs
+        ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+        classpath += files(ext.androidJar)
+        exclude '**/R.html', '**/R.*.html', '**/index.html'
+    }
 }
 
 task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
+    archiveClassifier.set("javadoc")
+//    classifier = 'javadoc'
     from androidJavadocs.destinationDir
 }
 
 task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set("sources")
+//    classifier = 'sources'
     from android.sourceSets.main.java.srcDirs
 }
 
