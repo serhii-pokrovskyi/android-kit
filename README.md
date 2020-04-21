@@ -7,4 +7,5 @@ repositories {
 ```
 ```groovy
 implementation 'one.brainyapps.androidkit:livedata:x.x.x'
+implementation 'one.brainyapps.androidkit:billing:x.x.x'
 ```
