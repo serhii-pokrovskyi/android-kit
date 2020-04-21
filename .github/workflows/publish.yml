@@ -21,10 +21,6 @@ jobs:
         run: ./gradlew clean build clean
       - name: Tests
         run: ./gradlew test
-      - name: Setting up env vars
-        env:
-          bintrayUser: ${{ secrets.bintray_user }}
-          bintrayApiKey: ${{ secrets.bintray_apikey }}
       - name: Publish livedata
         env:
           bintrayUser: ${{ secrets.bintray_user }}
