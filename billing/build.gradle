@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/21/20 10:57 AM
+ * Last modified: 4/24/20 12:39 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -13,7 +13,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.jetbrains.dokka-android'
 
-def libArtifactId = "livedata"
+def libArtifactId = "billing"
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -57,16 +57,16 @@ dokka {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+//    implementation 'androidx.appcompat:appcompat:1.1.0'
+//    implementation 'androidx.core:core-ktx:1.2.0'
 
-    def lifecycle_version = "2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    implementation 'com.android.billingclient:billing:2.2.0'
+    implementation 'com.android.billingclient:billing-ktx:2.2.0'
 
     testImplementation 'junit:junit:4.13'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-    androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
@@ -104,7 +104,7 @@ task androidSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-project(':livedata').afterEvaluate {
+project(':billing').afterEvaluate {
     publishing {
         publications {
             livedata(MavenPublication) {
