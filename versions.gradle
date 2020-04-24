@@ -1,13 +1,13 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 12:54 PM
+ * Last modified: 4/24/20 1:13 PM
  * Copyright (c) 2020
  * All rights reserved
  */
 
 // library version
-ext.libVersionName = "0.0.4.5"
+ext.libVersionName = "0.0.4.6"
 ext.libGroudId = "one.brainyapps.androidkit"
 ext.bintrayRepoName = "android-kit"
 
