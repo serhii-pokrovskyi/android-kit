@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 12:54 PM
+ * Last modified: 4/24/20 6:13 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -24,6 +24,8 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
         .enablePendingPurchases()
         .build()
 
+    private var historyListener: ((result: PurchaseHistoryResult) -> Unit)? = null
+
     init {
         billingClient.startConnection(this)
     }
@@ -37,7 +39,10 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
         val debugMessage = billingResult.debugMessage
         Log.d(TAG, "onBillingSetupFinished: $responseCode $debugMessage")
 
-        //TODO: query purchases
+        // query purchases history
+        historyListener?.let {
+            queryPurchaseHistory()
+        }
     }
 
     override fun onSkuDetailsResponse(
@@ -78,14 +83,22 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
         TODO("Not yet implemented")
     }
 
-    override fun queryPurchaseHistory(listener: (result: PurchaseHistoryResult) -> Unit) {
+    override fun addPurchaseHistoryListener(listener: (result: PurchaseHistoryResult) -> Unit): BillingProcessor {
+        historyListener = listener
+        return this
+    }
+
+    override fun queryPurchaseHistory() {
+        if (!billingClient.isReady) {
+            return
+        }
         CoroutineScope(Dispatchers.Main).launch {
             val result: PurchaseHistoryResult =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                     billingClient.queryPurchaseHistory(BillingClient.SkuType.INAPP)
                 }
 
-            listener.invoke(result)
+            historyListener?.invoke(result)
         }
     }
 
