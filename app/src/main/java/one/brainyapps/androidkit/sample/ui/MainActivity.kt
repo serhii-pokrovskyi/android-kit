@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 4:24 PM
+ * Last modified: 4/24/20 6:10 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -20,9 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val billingProcessor = BillingProcessor.new(this)
-
-        billingProcessor.queryPurchaseHistory {
-            it
-        }
+            .addPurchaseHistoryListener {
+                //todo: test
+            }
     }
 }

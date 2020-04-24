@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 12:37 PM
+ * Last modified: 4/24/20 6:07 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -13,7 +13,9 @@ import com.android.billingclient.api.PurchaseHistoryResult
 
 interface BillingProcessor {
 
-    fun queryPurchaseHistory(listener: (result: PurchaseHistoryResult) -> Unit)
+    fun addPurchaseHistoryListener(listener: (result: PurchaseHistoryResult) -> Unit): BillingProcessor
+
+    fun queryPurchaseHistory()
 
     /**
      * Release billing client if you don't need it anymore
