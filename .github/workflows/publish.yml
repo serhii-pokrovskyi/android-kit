@@ -26,3 +26,8 @@ jobs:
           bintrayUser: ${{ secrets.bintray_user }}
           bintrayApiKey: ${{ secrets.bintray_apikey }}
         run: ./gradlew :livedata:bintrayUpload
+      - name: Publish billing
+        env:
+          bintrayUser: ${{ secrets.bintray_user }}
+          bintrayApiKey: ${{ secrets.bintray_apikey }}
+        run: ./gradlew :billing:bintrayUpload

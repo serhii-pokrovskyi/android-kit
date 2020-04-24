@@ -1,4 +1,4 @@
-![latest version](https://api.bintray.com/packages/serhiipokrovskyi/android-kit/coroutines/images/download.svg)
+![latest version](https://api.bintray.com/packages/serhiipokrovskyi/android-kit/livedata/images/download.svg)
 
 ```groovy
 repositories {
@@ -6,7 +6,6 @@ repositories {
 }
 ```
 ```groovy
-implementation 'one.brainyapps.androidkit:coroutines:0.x.x'
-implementation 'one.brainyapps.androidkit:livedata:0.x.x'
-implementation 'one.brainyapps.androidkit:logger:0.x.x'
+implementation 'one.brainyapps.androidkit:livedata:x.x.x'
+implementation 'one.brainyapps.androidkit:billing:x.x.x'
 ```
