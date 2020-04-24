@@ -1,9 +1,14 @@
 <!--
   ~ Developed by Serhii Pokrovskyi
   ~ e-mail: pokrovskyi.dev@gmail.com
-  ~ Last modified: 4/21/20 10:55 AM
+  ~ Last modified: 4/24/20 12:55 PM
   ~ Copyright (c) 2020
   ~ All rights reserved
   -->
 
-<manifest package="one.brainyapps.androidkit.billing" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="one.brainyapps.androidkit.billing">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+</manifest>
