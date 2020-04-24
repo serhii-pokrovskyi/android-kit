@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 1:13 PM
+ * Last modified: 4/24/20 4:24 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -63,8 +63,8 @@ dependencies {
 //    implementation 'androidx.appcompat:appcompat:1.1.0'
 //    implementation 'androidx.core:core-ktx:1.2.0'
 
-    implementation 'com.android.billingclient:billing:2.2.0'
-    implementation 'com.android.billingclient:billing-ktx:2.2.0'
+    api 'com.android.billingclient:billing:2.2.0'
+    api 'com.android.billingclient:billing-ktx:2.2.0'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

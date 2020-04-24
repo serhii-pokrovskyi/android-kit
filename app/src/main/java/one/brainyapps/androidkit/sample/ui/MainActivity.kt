@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 12:49 PM
+ * Last modified: 4/24/20 4:24 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val billingProcessor = BillingProcessor.new(this)
 
         billingProcessor.queryPurchaseHistory {
-
+            it
         }
     }
 }
