@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/26/20 11:13 AM
+ * Last modified: 4/26/20 11:15 AM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Deprecated(
-    message = "This BillingProcessor will not be developed anymore", ,
+    message = "This BillingProcessor will not be developed anymore",
     level = DeprecationLevel.WARNING
 )
 internal class BillingProcessorImpl(context: Context) : BillingProcessor,

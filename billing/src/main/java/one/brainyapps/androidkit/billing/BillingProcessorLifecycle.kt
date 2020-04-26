@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/26/20 11:09 AM
+ * Last modified: 4/26/20 11:32 AM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -17,7 +17,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.android.billingclient.api.*
 import one.brainyapps.androidkit.livedata.SingleEvent
 
-class BillingClientLifecycle private constructor(
+class BillingProcessorLifecycle private constructor(
     private val app: Application
 ) : LifecycleObserver, PurchasesUpdatedListener, BillingClientStateListener,
     SkuDetailsResponseListener {
@@ -44,14 +44,14 @@ class BillingClientLifecycle private constructor(
     private lateinit var billingClient: BillingClient
 
     companion object {
-        private const val TAG = "BillingLifecycle"
+        private const val TAG = "BillingProcessor"
 
         @Volatile
-        private var INSTANCE: BillingClientLifecycle? = null
+        private var INSTANCE: BillingProcessorLifecycle? = null
 
-        fun getInstance(app: Application): BillingClientLifecycle =
+        fun getInstance(app: Application): BillingProcessorLifecycle =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: BillingClientLifecycle(app).also { INSTANCE = it }
+                INSTANCE ?: BillingProcessorLifecycle(app).also { INSTANCE = it }
             }
     }
 
