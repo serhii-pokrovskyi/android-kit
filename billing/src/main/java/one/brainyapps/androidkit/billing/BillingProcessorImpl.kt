@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/24/20 6:13 PM
+ * Last modified: 4/26/20 10:36 AM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -24,6 +24,7 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
         .enablePendingPurchases()
         .build()
 
+    private var setupListener: ((billingResult: BillingResult) -> Unit)? = null
     private var historyListener: ((result: PurchaseHistoryResult) -> Unit)? = null
 
     init {
@@ -38,6 +39,9 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
         val responseCode = billingResult.responseCode
         val debugMessage = billingResult.debugMessage
         Log.d(TAG, "onBillingSetupFinished: $responseCode $debugMessage")
+
+        // setup listener
+        setupListener?.invoke(billingResult)
 
         // query purchases history
         historyListener?.let {
@@ -83,15 +87,22 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
         TODO("Not yet implemented")
     }
 
+    override val isReady: Boolean
+        get() = billingClient.isReady
+
+    override fun addSetupFinishedListener(listener: (billingResult: BillingResult) -> Unit): BillingProcessor {
+        setupListener = listener
+        return this
+    }
+
     override fun addPurchaseHistoryListener(listener: (result: PurchaseHistoryResult) -> Unit): BillingProcessor {
         historyListener = listener
         return this
     }
 
     override fun queryPurchaseHistory() {
-        if (!billingClient.isReady) {
-            return
-        }
+        checkBillingClientState()
+
         CoroutineScope(Dispatchers.Main).launch {
             val result: PurchaseHistoryResult =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
@@ -104,6 +115,12 @@ internal class BillingProcessorImpl(context: Context) : BillingProcessor,
 
     override fun release() {
         billingClient.endConnection()
+    }
+
+    private fun checkBillingClientState() {
+        if (!isReady) {
+            throw IllegalStateException("billingClient is not ready!")
+        }
     }
 
     companion object {
