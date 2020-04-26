@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/26/20 11:32 AM
+ * Last modified: 4/26/20 8:48 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -15,23 +15,16 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.android.billingclient.api.*
-import one.brainyapps.androidkit.livedata.SingleEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BillingProcessorLifecycle private constructor(
     private val app: Application
 ) : LifecycleObserver, PurchasesUpdatedListener, BillingClientStateListener,
     SkuDetailsResponseListener {
 
-    /**
-     * The purchase event is observable. Only one oberver will be notified.
-     */
-    val purchaseUpdateEvent = SingleEvent<List<Purchase>>()
-
-    /**
-     * Purchases are observable. This list will be updated when the Billing Library
-     * detects new or existing purchases. All observers will be notified.
-     */
-    val purchases = MutableLiveData<List<Purchase>>()
+    val purchasesHistory = MutableLiveData<List<PurchaseHistoryRecord>>()
 
     /**
      * SkuDetails for all known SKUs.
@@ -42,18 +35,6 @@ class BillingProcessorLifecycle private constructor(
      * Instantiate a new BillingClient instance.
      */
     private lateinit var billingClient: BillingClient
-
-    companion object {
-        private const val TAG = "BillingProcessor"
-
-        @Volatile
-        private var INSTANCE: BillingProcessorLifecycle? = null
-
-        fun getInstance(app: Application): BillingProcessorLifecycle =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: BillingProcessorLifecycle(app).also { INSTANCE = it }
-            }
-    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun create() {
@@ -89,7 +70,11 @@ class BillingProcessorLifecycle private constructor(
         if (responseCode == BillingClient.BillingResponseCode.OK) {
             // The billing client is ready. You can query purchases here.
             //TODO: querySkuDetails()
-            //TODO: queryPurchases()
+
+            // purchases history
+            CoroutineScope(Dispatchers.IO).launch {
+                queryPurchaseHistory()
+            }
         }
     }
 
@@ -187,5 +172,43 @@ class BillingProcessorLifecycle private constructor(
                 )
             }
         }
+    }
+
+    suspend fun queryPurchaseHistory() {
+        if (!billingClient.isReady) {
+            Log.e(TAG, "queryPurchaseHistory: BillingClient is not ready")
+        }
+
+        val result = billingClient.queryPurchaseHistory(BillingClient.SkuType.INAPP)
+
+        if (result == null) {
+            Log.i(TAG, "queryPurchaseHistory: null purchase result")
+            processPurchaseHistory(emptyList())
+        } else {
+            if (result.purchaseHistoryRecordList == null) {
+                Log.i(TAG, "queryPurchaseHistory: null purchase list")
+                processPurchaseHistory(emptyList())
+            } else {
+                processPurchaseHistory(result.purchaseHistoryRecordList)
+            }
+        }
+    }
+
+    private fun processPurchaseHistory(historyList: List<PurchaseHistoryRecord>?) {
+        CoroutineScope(Dispatchers.Main).launch {
+            purchasesHistory.value = historyList
+        }
+    }
+
+    companion object {
+        private const val TAG = "BillingProcessor"
+
+        @Volatile
+        private var INSTANCE: BillingProcessorLifecycle? = null
+
+        fun getInstance(app: Application): BillingProcessorLifecycle =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: BillingProcessorLifecycle(app).also { INSTANCE = it }
+            }
     }
 }
