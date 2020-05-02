@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/21/20 10:57 AM
+ * Last modified: 5/2/20 2:19 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -14,6 +14,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.jetbrains.dokka-android'
 
 def libArtifactId = "livedata"
+libVersionName
 
 android {
     compileSdkVersion build_versions.compile_sdk
