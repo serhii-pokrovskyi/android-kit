@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/26/20 10:52 AM
+ * Last modified: 5/2/20 2:19 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -14,6 +14,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.jetbrains.dokka-android'
 
 def libArtifactId = "billing"
+version = libVersionName
 
 android {
     compileSdkVersion build_versions.compile_sdk
@@ -153,7 +154,9 @@ project(':billing').afterEvaluate {
                     // List all "api" dependencies (for new Gradle) as "compile" dependencies
                     configurations.api.getDependencies().each { dep -> addDependency(dep, "compile") }
                     // List all "implementation" dependencies (for new Gradle) as "runtime" dependencies
-                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
+                    configurations.implementation.getDependencies().each { dep ->
+                        addDependency(dep, "runtime")
+                    }
                 }
             }
         }
