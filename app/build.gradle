@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
- * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 4/21/20 3:40 PM
+ * e-mail: serg.pokrovskyi@gmail.com
+ * Last modified: 5/3/20 11:36 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -47,6 +47,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
+    implementation project(':livedata')
     implementation project(':billing')
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
