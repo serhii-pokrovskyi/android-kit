@@ -1,13 +1,14 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: serg.pokrovskyi@gmail.com
- * Last modified: 5/3/20 9:25 PM
+ * Last modified: 5/3/20 11:40 PM
  * Copyright (c) 2020
  * All rights reserved
  */
 
 package one.brainyapps.androidkit.billing
 
+import android.app.Activity
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.Lifecycle
@@ -18,12 +19,21 @@ import com.android.billingclient.api.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import one.brainyapps.androidkit.livedata.SingleEvent
 
 class BillingProcessorLifecycle private constructor(
     private val app: Application
 ) : LifecycleObserver, PurchasesUpdatedListener, BillingClientStateListener,
     SkuDetailsResponseListener {
 
+    /**
+     * The purchase event is observable. Only one observer will be notified.
+     */
+    val purchaseUpdateEvent = SingleEvent<List<Purchase>>()
+
+    /**
+     * The purchase history event is observable.
+     */
     val purchasesHistory = MutableLiveData<List<PurchaseHistoryRecord>>()
 
     /**
@@ -151,9 +161,9 @@ class BillingProcessorLifecycle private constructor(
             BillingClient.BillingResponseCode.OK -> {
                 if (purchases == null) {
                     Log.d(TAG, "onPurchasesUpdated: null purchase list")
-                    //TODO: processPurchases(null)
+                    processPurchases(null)
                 } else {
-                    //TODO: processPurchases(purchases)
+                    processPurchases(purchases)
                 }
             }
             BillingClient.BillingResponseCode.USER_CANCELED -> {
@@ -192,6 +202,43 @@ class BillingProcessorLifecycle private constructor(
                 processPurchaseHistory(result.purchaseHistoryRecordList)
             }
         }
+    }
+
+    suspend fun launchInAppBillingBySku(activity: Activity, sku: String) {
+        val skuParams = SkuDetailsParams.newBuilder()
+            .setType(BillingClient.SkuType.INAPP)
+            .setSkusList(arrayListOf(sku))
+            .build()
+
+        val skuResult = billingClient.querySkuDetails(skuParams)
+
+        if (skuResult.skuDetailsList.isNullOrEmpty()) {
+            // sku details list null or empty
+            Log.e(
+                TAG, "querySkuDetails: " +
+                        "${skuResult.billingResult.responseCode} ${skuResult.billingResult.debugMessage}"
+            )
+            return
+        }
+
+        val skuDetails = skuResult.skuDetailsList!!.first()
+
+        val billingFlowParams = BillingFlowParams.newBuilder()
+            .setSkuDetails(skuDetails)
+            .build()
+
+        billingClient.launchBillingFlow(activity, billingFlowParams)
+    }
+
+    /**
+     * Send purchase SingleLiveEvent and update purchases LiveData.
+     *
+     * The SingleLiveEvent will trigger network call to verify the subscriptions on the sever.
+     * The LiveData will allow Google Play settings UI to update based on the latest purchase data.
+     */
+    private fun processPurchases(purchasesList: List<Purchase>?) {
+        Log.d(TAG, "processPurchases: ${purchasesList?.size} purchase(s)")
+        purchaseUpdateEvent.postValue(purchasesList)
     }
 
     private fun processPurchaseHistory(historyList: List<PurchaseHistoryRecord>?) {

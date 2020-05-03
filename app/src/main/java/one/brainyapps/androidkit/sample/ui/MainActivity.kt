@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: serg.pokrovskyi@gmail.com
- * Last modified: 5/3/20 9:25 PM
+ * Last modified: 5/3/20 10:56 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -27,7 +27,13 @@ class MainActivity : AppCompatActivity() {
         lifecycle.addObserver(billingProcessorLifecycle)
 
         billingProcessorLifecycle.purchasesHistory.observe(this, Observer {
-            //
+            //todo
+        })
+        billingProcessorLifecycle.skusWithSkuDetails.observe(this, Observer {
+            //todo
+        })
+        billingProcessorLifecycle.purchaseUpdateEvent.observe(this, Observer {
+            //todo
         })
 
         val billingProcessor = BillingProcessor.new(this)
