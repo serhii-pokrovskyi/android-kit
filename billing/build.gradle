@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: pokrovskyi.dev@gmail.com
- * Last modified: 5/2/20 2:19 PM
+ * Last modified: 5/3/20 1:59 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -15,6 +15,7 @@ apply plugin: 'org.jetbrains.dokka-android'
 
 def libArtifactId = "billing"
 version = libVersionName
+group = libGroudId
 
 android {
     compileSdkVersion build_versions.compile_sdk
