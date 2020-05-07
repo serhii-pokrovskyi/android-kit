@@ -1,7 +1,7 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: serg.pokrovskyi@gmail.com
- * Last modified: 5/3/20 11:40 PM
+ * Last modified: 5/7/20 7:11 PM
  * Copyright (c) 2020
  * All rights reserved
  */
@@ -30,6 +30,11 @@ class BillingProcessorLifecycle private constructor(
      * The purchase event is observable. Only one observer will be notified.
      */
     val purchaseUpdateEvent = SingleEvent<List<Purchase>>()
+
+    /**
+     * Purchase result as observable. Only one observer will be notified.
+     */
+    val purchaseUpdateResult = SingleEvent<PurchaseUpdateResult>()
 
     /**
      * The purchase history event is observable.
@@ -182,6 +187,14 @@ class BillingProcessorLifecycle private constructor(
                 )
             }
         }
+
+        this.purchaseUpdateResult.postValue(
+            PurchaseUpdateResult(
+                responseCode,
+                debugMessage,
+                purchases
+            )
+        )
     }
 
     suspend fun queryPurchaseHistory() {
