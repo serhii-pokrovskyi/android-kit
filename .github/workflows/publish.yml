@@ -31,3 +31,8 @@ jobs:
           bintrayUser: ${{ secrets.bintray_user }}
           bintrayApiKey: ${{ secrets.bintray_apikey }}
         run: ./gradlew :billing:bintrayUpload
+      - name: Publish extensionsktx
+        env:
+          bintrayUser: ${{ secrets.bintray_user }}
+          bintrayApiKey: ${{ secrets.bintray_apikey }}
+        run: ./gradlew :extensionsktx:bintrayUpload
