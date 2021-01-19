@@ -1,8 +1,8 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: serg.pokrovskyi@gmail.com
- * Last modified: 5/3/20 9:25 PM
- * Copyright (c) 2020
+ * Last modified: 1/19/21 8:50 PM
+ * Copyright (c) 2021
  * All rights reserved
  */
 
@@ -13,7 +13,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18"

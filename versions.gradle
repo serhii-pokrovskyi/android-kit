@@ -1,8 +1,8 @@
 /*
  * Developed by Serhii Pokrovskyi
  * e-mail: serg.pokrovskyi@gmail.com
- * Last modified: 5/26/20 3:14 PM
- * Copyright (c) 2020
+ * Last modified: 1/19/21 8:52 PM
+ * Copyright (c) 2021
  * All rights reserved
  */
 
@@ -20,5 +20,5 @@ build_versions.build_tools = "29.0.3"
 ext.build_versions = build_versions
 
 // kotlin
-ext.kotlin_version = "1.3.72"
-ext.kotlin_coroutines_version = "1.3.5"
+ext.kotlin_version = "1.4.21"
+ext.kotlin_coroutines_version = "1.4.2"
